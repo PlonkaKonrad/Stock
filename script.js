@@ -20,6 +20,9 @@ function fetchData() {
         console.log(data);
 
 
+
+        
+
          let information = data['Meta Data']['1. Information'];
          let symbol = data['Meta Data']['2. Symbol'];
          let interval = data['Meta Data']['4. Interval'];
@@ -46,25 +49,84 @@ function fetchData() {
 
 
 
+         
+   //zmapować wszyskie czasy wyciągnąć z nich ceny zamknięcia następnie wrzucic tablice z cenami zamknięcia jako
+   //data do  funckcji rysującej wykres
 
 
+   //wyciągnąć tak samo daty  i wrzucić jako tablice do  tablicy labels w funcji drawChart
+
+         
 
 
-
-
-
-
-         console.log(pricesArr);
-
-        
-
-       
-        
-        
-        
-      
    
    
    
        })
    }
+
+
+
+   //////////////////////////////////////////////////////////////// CHART FUNCTION
+
+function drawChart() {
+var ctx = document.getElementById('chart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: 'Price',
+            data: [12, 30, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(84, 255, 187, 0.2)'
+             
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)'
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+})};
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////// GLOW BUTTON
+
+$('.btn').on("click", function(){
+    
+     
+        $('.btn').removeClass('btn-active')
+        $(this).toggleClass('btn-active');
+
+        drawChart();
+    
+        
+        
+    })
+
+
+
+
+
+
+
+
+   ////////////////////////////////////////////////  STYLES  SCRIPTS
+  
