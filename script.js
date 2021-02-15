@@ -3,17 +3,25 @@ function fetchData() {
 
 
 
-    let example2 = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=TSLA&apikey=MAFIRWJKPWJ3T0GS"
+    let company = $('#company').val();
 
 
+    let link = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol="+company+"&apikey=MAFIRWJKPWJ3T0GS"
 
-    fetch(example2)
+
+    
+
+    fetch(link)
        .then(response =>{
            return response.json();
        }).then(data =>{
-        //console.log(data);
+       // console.log(data);
+
+
 
         let timeEntries = Object.entries(data['Weekly Time Series']);
+
+        let symbol = data['Meta Data']['2. Symbol'];
     
 
         let daysArr = [];
@@ -57,7 +65,7 @@ function fetchData() {
         
         
             console.log(daysArrReverse);
-            drawChart(openPriceArrReverse, daysArrReverse);
+            drawChart(openPriceArrReverse, daysArrReverse, symbol );
         
         
         
@@ -71,14 +79,14 @@ function fetchData() {
 
    //////////////////////////////////////////////////////////////// CHART FUNCTION
 
-function drawChart(data, date) {
+function drawChart(data, date, symbol) {
 const ctx = document.getElementById('chart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: date,
         datasets: [{
-            label: 'Price',
+            label: symbol,
             data: data,
             backgroundColor: [
                 'rgba(84, 255, 187, 0.2)'
@@ -102,31 +110,3 @@ const myChart = new Chart(ctx, {
         }
     }
 })};
-
-
-
-
-///////////////////////////////////////////////////////////////// GLOW BUTTON
-
-$('.btn').on("click", function(){
-    
-     
-        $('.btn').removeClass('btn-active')
-        $(this).toggleClass('btn-active');
-
-       
-        fetchData();
-    
-        
-        
-    })
-
-
-
-
-
-
-
-
-   ////////////////////////////////////////////////  STYLES  SCRIPTS
-  
