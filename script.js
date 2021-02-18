@@ -15,7 +15,7 @@ function fetchData() {
        .then(response =>{
            return response.json();
        }).then(data =>{
-       // console.log(data);
+        console.log(data);
 
 
 
@@ -40,9 +40,9 @@ function fetchData() {
 
             
             let openPrice = prices[0][1];
-            let highPrice = prices[0][2];
-            let lowPrice = prices[0][3];
-            let closePrice = prices[0][4];
+            let highPrice = prices[1][1];
+            let lowPrice = prices[2][1];
+            let closePrice = prices[3][1];
             
 
             daysArr.push(day);
@@ -50,26 +50,41 @@ function fetchData() {
             highPriceArr.push(highPrice)
             lowPriceArr.push(lowPrice)
             closePriceArr.push(closePrice)
-
-
-    
-
+            
+            
         }
+       
+      
+        
+
+
 
         let daysArrReverse = daysArr.reverse();
         let openPriceArrReverse = openPriceArr.reverse();
         let highPriceArrReverse = highPriceArr.reverse();
         let lowPriceArrReverse = lowPriceArr.reverse();
         let closePriceArrReverse = closePriceArr.reverse();
-        
-        
-        
-            console.log(daysArrReverse);
-            drawChart(openPriceArrReverse, daysArrReverse, symbol );
-        
-        
-        
-        
+
+
+       
+       
+
+
+    
+
+        const display = document.querySelector('.display');
+
+        display.textContent= '';
+       
+
+        chart(closePriceArrReverse);
+
+
+
+
+        // drawChart(openPriceArrReverse, daysArrReverse, symbol );
+
+
        })
    }
 
@@ -110,3 +125,31 @@ const myChart = new Chart(ctx, {
         }
     }
 })};
+
+////////////////////////////////////////////////////////////////////////////   
+
+
+
+function chart(closePriceArrReverse){
+
+
+for(let i = 0; i < closePriceArrReverse.length; i++){
+
+
+    const display = document.querySelector('.display');
+
+    const newPrice = document.createElement('div');
+    let height = closePriceArrReverse +'px';
+    newPrice.id = 'r'+i;
+    newPrice.style.height = (closePriceArrReverse[i] / 4) + 'px';
+    newPrice.className = 'chart';
+
+
+
+    display.appendChild(newPrice);
+ 
+ }
+
+ 
+
+}
